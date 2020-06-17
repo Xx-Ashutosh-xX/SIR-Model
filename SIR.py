@@ -12,8 +12,8 @@ N = data['Susceptible'].iloc[0]
 I0 , R0 = 1 , 0
 S0 = N - I0 -R0
 gamma =1.0/10
-Ro_Universal = 2.800       # Value taken from analysis made by WHO
-Ro = data['Ro'].iloc[-1]   # Value of Data
+Ro_Universal = 2.79        # Median of multiple Ro values calculated by different researches
+Ro = data['Ro'].iloc[-1]   # Value Calculated of Data
 beta = Ro_Universal* gamma
 
 
@@ -103,7 +103,7 @@ ax4.legend(loc="upper right")
 ### Figure-2 ###
 
 fig1 = plt.figure(figsize=(14,14) ,facecolor='w',edgecolor='Black')
-fig1.suptitle("Lockdown Implemented (i.e from 25 March 2020)", fontsize=25)
+fig1.suptitle("Lockdown Implemented (from 25 March 2020)", fontsize=25)
 
 ## Defining all the Sub-Plots ##
 
@@ -143,8 +143,8 @@ def Beta(t):
     return R_0(t) * gamma
 
 # Ploting Curves Without Lockdown #
-L=400
-t = np.linspace(0,592,592)
+L=600
+t = np.linspace(0,332,332)
 y0 = S0, I0 , R0
 ret = odeint(Deriv, y0, t, args=(N,Beta,gamma))
 S, I, R = ret.T
@@ -163,8 +163,8 @@ ax2.text(indexI,Imax,"Maximum Infections : " + ImaxSTR , size=8, color='black',v
 ax2.plot(indexI,Imax,color='black',marker='o',markersize=3)
 
 # Ploting Curves With Lockdown #
-L=25
-t = np.linspace(0,592,592)
+L=7
+t = np.linspace(0,488,488)
 y0 = S0, I0 , R0
 ret = odeint(Deriv, y0, t, args=(N,Beta,gamma))
 S, I, R = ret.T
@@ -201,8 +201,8 @@ ax3.text(indexR,Rmax," Total Recovered : " + RmaxSTR , size=9.5, color='black',h
 ax3.plot(indexR,Rmax,color='black',marker='o',markersize=3)
 
 ## Redefining Initial conditions for Fiting Data with Model ##
-L=25
-t = np.linspace(0,90,90)
+L=7
+t = np.linspace(0,87,87)
 y0 = S0, I0 , R0
 ret = odeint(Deriv, y0, t, args=(N,Beta,gamma))
 S, I, R = ret.T
